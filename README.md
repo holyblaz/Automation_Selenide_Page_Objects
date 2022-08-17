@@ -1,0 +1,1 @@
+# Automation_Selenide_Page_Objects [![Build status](https://ci.appveyor.com/api/projects/status/ixtpiw17xt969ukq/branch/main?svg=true)](https://ci.appveyor.com/project/holyblaz/automation-selenide-page-objects/branch/main)
