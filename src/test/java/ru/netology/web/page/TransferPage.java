@@ -19,7 +19,7 @@ public class TransferPage {
         applyButton.click();
     }
 
-    public void getNotification() {
-        notification.shouldHave(exactText("Перевод не возможен. Баланс карты превышен")).shouldBe(visible);
-    }
+    /* public void getNotification() {
+        notification.shouldHave(exactText("Произошла ошибка")).shouldBe(visible);
+    }*/
 }

@@ -3,6 +3,7 @@ package ru.netology.web.test;
 import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
@@ -24,7 +25,7 @@ public class TransferMoneyTest {
 
     @Test
     void shouldTransferMoneyFromSecondToFirstCard() {
-        int value = 200;
+        int value = 100;
         String cardNumber = String.valueOf(DataHelper.getSecondCardNumber());
         val dashboardPage = new DashboardPage();
         var firstCardBalance = dashboardPage.getFirstCardBalance();
@@ -40,7 +41,7 @@ public class TransferMoneyTest {
 
     @Test
     void shouldTransferMoneyFirstToSecondCard() {
-        int value = 200;
+        int value = 100;
         String cardNumber = String.valueOf(DataHelper.getFirstCardNumber());
         val dashboardPage = new DashboardPage();
         var firstCardBalance = dashboardPage.getFirstCardBalance();
@@ -55,14 +56,19 @@ public class TransferMoneyTest {
     }
 
     @Test
-    void shouldNotTransferMoneyFromFirstToSecondCardAfterLimit() {
-        int value = 200;
+    @DisplayName("Deposit of card is 0 rubles at the moment")
+    void shouldNotTransferMoneyFromSecondToFirstAfterLimit() {
+        int value = 100000;
         String cardNumber = String.valueOf(DataHelper.getSecondCardNumber());
         val dashboardPage = new DashboardPage();
         var secondCardBalance = dashboardPage.getSecondCardBalance();
+        var firstCardBalance = dashboardPage.getFirstCardBalance();
         dashboardPage.transferButtonSecondToFirst();
         val transferPage = new TransferPage();
-        transferPage.importTransferData(value + secondCardBalance, cardNumber);
-        transferPage.getNotification();
+        transferPage.importTransferData(value, cardNumber);
+        var firstCardBalance1 = dashboardPage.getFirstCardBalance();
+        var secondCardBalance1 = dashboardPage.getSecondCardBalance();
+        Assertions.assertEquals(secondCardBalance - value, secondCardBalance1);
+        Assertions.assertEquals(firstCardBalance + value, firstCardBalance1);
     }
 }
